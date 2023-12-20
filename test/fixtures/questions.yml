@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  textbook: one
+  chapter: 1
+  questionHead: MyString
+  questionBlurb: MyString
+  account: one
+
+two:
+  textbook: two
+  chapter: 1
+  questionHead: MyString
+  questionBlurb: MyString
+  account: two
