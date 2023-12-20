@@ -8,7 +8,7 @@ module Api
             end
 
             def show
-                question = Question.find_by(params[:id])
+                question = Question.find_by(textbook_id: params[:textbook_id])#(params[:id])
                 render json: QuestionSerializer.new(question).serialized_json
             end
 
@@ -22,7 +22,7 @@ module Api
             end
 
             def update
-                question = Question.find_by(params[:id])
+                question = Question.find_by(textbook_id: params[:textbook_id])
                 if question.update(question_params)
                     render json: QuestionSerializer.new(question).serialized_json
                 else
@@ -31,7 +31,7 @@ module Api
             end
 
             def destroy
-                question = Question.find_by(params[:id])
+                question = Question.find_by(textbook_id: params[:textbook_id])
                 if question.destroy
                     head :no_content
                 else

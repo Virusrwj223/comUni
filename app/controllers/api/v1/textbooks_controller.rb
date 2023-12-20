@@ -8,7 +8,7 @@ module Api
             end
 
             def show
-                textbook = Textbook.find_by(params[:id])
+                textbook = Textbook.find_by(isbn: params[:isbn])#(params[:id])
                 render json: TextbookSerializer.new(textbook).serialized_json
             end
 
@@ -22,7 +22,7 @@ module Api
             end
 
             def update
-                textbook = Textbook.find_by(params[:id])
+                textbook = Textbook.find_by(isbn: params[:isbn])#(params[:id])
                 if textbook.update(textbook_params)
                     render json: TextbookSerializer.new(textbook).serialized_json
                 else
@@ -31,7 +31,7 @@ module Api
             end
 
             def destroy
-                textbook = Textbook.find_by(params[:id])
+                textbook = Textbook.find_by(isbn: params[:isbn])#(params[:id])
                 if textbook.destroy
                     head :no_content
                 else
