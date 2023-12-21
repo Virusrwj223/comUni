@@ -17,7 +17,7 @@ function ChapterDir() {
       if (response.ok) {
         const json = await response.json();
         navigate(String(chapter), {
-          state: json,
+          state: [[id, chapter, isbn], json], //json,
         });
       } else {
         throw response;
@@ -49,7 +49,7 @@ function ChapterDir() {
   if (!chapters) {
     return (
       <div>
-        <NavBar />
+        <NavBar page="chapterLoading" />
         <h2>loading</h2>
       </div>
     );
@@ -60,7 +60,7 @@ function ChapterDir() {
     }
     return (
       <div>
-        <NavBar />
+        <NavBar page="chapter" />
         <h1>Chapters</h1>
         <div
           style={{

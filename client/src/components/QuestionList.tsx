@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
+import FloatingButton from "../widgets/FloatingButton";
+import DeleteButton from "../widgets/DeleteButton";
+import EditButton from "../widgets/EditButton";
 
 function QuestionList() {
   const location = useLocation();
   const [questionData, setQuestionData] = useState([[[]]]);
   const navigate = useNavigate();
-  const data = location["state"]["data"];
+  const data = location["state"][1]["data"];
+  const params = location["state"][0];
   const qnId_arr: Number[] = [];
-
+  const routing_data = params[2];
   async function handleQuestionClick(qnID: String) {
-    console.log(qnID);
     try {
       const response = await fetch(
         `http://localhost:3000/api/v2/discussions/${qnID}`
@@ -18,7 +21,7 @@ function QuestionList() {
       if (response.ok) {
         const json = await response.json();
         navigate(String(qnID), {
-          state: json,
+          state: [[params[0], qnID], json],
         });
       } else {
         throw response;
@@ -38,6 +41,7 @@ function QuestionList() {
           const response = await fetch(
             `http://localhost:3000/api/v1/questions/${num}`
           );
+
           return await response.json();
         })
       );
@@ -53,17 +57,16 @@ function QuestionList() {
     fetchQns();
   }, []);
 
-  console.log(questionData);
-
   return (
     <div>
-      <NavBar />
+      <NavBar page="question" />
       <h1>Questions</h1>
       <div
         style={{
-          display: "flex",
+          display: "grid",
           flexWrap: "wrap",
-          justifyContent: "center",
+
+          height: "100%",
         }}
       >
         {questionData.map((dataPoint) => {
@@ -76,19 +79,31 @@ function QuestionList() {
             <div
               style={{
                 border: "1px solid #ccc",
-                padding: "10px",
-                margin: "10px",
                 borderRadius: "8px",
-                textAlign: "center",
+                margin: "10px",
+                padding: "10px",
               }}
-              onClick={() => handleQuestionClick(String(dataPoint[2]))}
             >
-              <h3>{dataPoint[0]}</h3>
-              <p>{dataPoint[1]}</p>
+              <div
+                style={{ justifyContent: "center" }}
+                onClick={() => handleQuestionClick(String(dataPoint[2]))}
+              >
+                <h3>{dataPoint[0]}</h3>
+                <p>{dataPoint[1]}</p>
+              </div>
+              <div style={{ display: "flex" }}>
+                <div style={{ marginRight: "5px" }}>
+                  <DeleteButton id="Questions" params={dataPoint[2]} />
+                </div>
+                <div style={{ marginLeft: "5px" }}>
+                  <EditButton id="Questions" params={[params, dataPoint]} />
+                </div>
+              </div>
             </div>
           );
         })}
       </div>
+      <FloatingButton id="Questions" params={params} />
     </div>
   );
 }
