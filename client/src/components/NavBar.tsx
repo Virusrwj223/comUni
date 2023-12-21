@@ -1,8 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function NavBar() {
-  return <p>test</p>;
+  const navigate = useNavigate();
+  return (
+    <nav>
+      <p onClick={() => navigate("/", { replace: true })}>test</p>
+    </nav>
+  );
 }
 
 export default NavBar;

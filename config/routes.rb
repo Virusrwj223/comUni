@@ -5,8 +5,12 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :accounts
       resources :textbooks, param: :isbn
-      resources :questions, param: :textbook_id
+      resources :questions, param: :id
       resources :discussions
+    end
+    namespace :v2 do
+      resources :questions, param: :chapter, param: :textbook_id
+      resources :discussions, param: :question_id
     end
   end
 

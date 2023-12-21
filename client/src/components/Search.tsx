@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
+import { Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Search() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
-  const [textbookData, setTextbook] = useState("");
 
   const handleSearch = async () => {
     //await loadTextbook();
     try {
       const response = await fetch(
-        "http://localhost:3000/api/v1/textbooks/dab123"
+        "http://localhost:3000/api/v1/textbooks/aab123"
       );
       if (response.ok) {
         const json = await response.json();
-        console.log(json);
-        setTextbook(json);
+        navigate(json["data"]["attributes"]["isbn"], {
+          state: json["data"]["attributes"]["isbn"],
+        });
+        //setTextbookId(json["data"]["id"]);
       } else {
         throw response;
       }
@@ -21,6 +25,7 @@ function Search() {
       console.log(e);
     }
   };
+
   return (
     <div
       style={{
