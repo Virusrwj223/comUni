@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./Popup.css"; // You can create a CSS file for styling
+import "../styles/Popup.css";
+import rest from "../apiRoutes/rest";
 
 const Popup = ({ isOpen, onClose, id, params }) => {
   const [message, setMessage] = useState("");
@@ -17,23 +18,7 @@ const Popup = ({ isOpen, onClose, id, params }) => {
         questionBlurb: message,
         account_id: 1,
       };
-      try {
-        const response = await fetch(`http://localhost:3000/api/v1/questions`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
-        if (response.ok) {
-          const json = await response.json();
-          console.log(json);
-        } else {
-          throw response;
-        }
-      } catch (e) {
-        console.log(e);
-      }
+      const response = await rest("POST", [NaN, formData], 6);
     } else if (id == "QuestionsEdit") {
       const textbook_id = params[0][0];
       const chapter = params[0][1];
@@ -53,26 +38,7 @@ const Popup = ({ isOpen, onClose, id, params }) => {
         questionBlurb: new_message,
         account_id: 1,
       };
-      try {
-        const response = await fetch(
-          `http://localhost:3000/api/v1/questions/${qID}`,
-          {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-          }
-        );
-        if (response.ok) {
-          const json = await response.json();
-          console.log(json);
-        } else {
-          throw response;
-        }
-      } catch (e) {
-        console.log(e);
-      }
+      const response = await rest("PATCH", [qID, formData], 4);
     } else if (id == "Discussions") {
       const textbook_id = params[0];
       const question_id = params[1];
@@ -82,27 +48,7 @@ const Popup = ({ isOpen, onClose, id, params }) => {
         response: message,
         account_id: 1,
       };
-
-      try {
-        const response = await fetch(
-          `http://localhost:3000/api/v1/discussions`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-          }
-        );
-        if (response.ok) {
-          const json = await response.json();
-          console.log(json);
-        } else {
-          throw response;
-        }
-      } catch (e) {
-        console.log(e);
-      }
+      const response = await rest("POST", [NaN, formData], 7);
     } else if (id == "DiscussionsEdit") {
       const dID = params[1]["id"];
       const textbook_id = params[1]["attributes"]["textbook_id"];
@@ -120,32 +66,12 @@ const Popup = ({ isOpen, onClose, id, params }) => {
         account_id: account_id,
       };
 
-      try {
-        const response = await fetch(
-          `http://localhost:3000/api/v1/discussions/id=${dID}`,
-          {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-          }
-        );
-        if (response.ok) {
-          const json = await response.json();
-          console.log(json);
-        } else {
-          throw response;
-        }
-      } catch (e) {
-        console.log(e);
-      }
+      const response = await rest("PATCH", [dID, formData], 8);
     }
 
-    // Close the popup after submission
     onClose();
   };
-  if (id == "Questions") {
+  if (id == "Questions" || id == "QuestionsEdit") {
     return (
       <div className={`popup ${isOpen ? "open" : ""}`}>
         <div className="popup-content">
@@ -176,60 +102,7 @@ const Popup = ({ isOpen, onClose, id, params }) => {
         </div>
       </div>
     );
-  } else if (id == "QuestionsEdit") {
-    return (
-      <div className={`popup ${isOpen ? "open" : ""}`}>
-        <div className="popup-content">
-          <span className="close-btn" onClick={onClose}>
-            &times;
-          </span>
-          <form>
-            <label>
-              Headline:
-              <textarea
-                value={headline}
-                onChange={(e) => setHeadline(e.target.value)}
-              />
-            </label>
-          </form>
-          <form>
-            <label>
-              Message:
-              <textarea
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-              />
-            </label>
-            <button type="button" onClick={handleSubmit}>
-              Submit
-            </button>
-          </form>
-        </div>
-      </div>
-    );
-  } else if (id == "Discussions") {
-    return (
-      <div className={`popup ${isOpen ? "open" : ""}`}>
-        <div className="popup-content">
-          <span className="close-btn" onClick={onClose}>
-            &times;
-          </span>
-          <form>
-            <label>
-              Message:
-              <textarea
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-              />
-            </label>
-            <button type="button" onClick={handleSubmit}>
-              Submit
-            </button>
-          </form>
-        </div>
-      </div>
-    );
-  } else if (id == "DiscussionsEdit") {
+  } else if (id == "Discussions" || id == "DiscussionsEdit") {
     return (
       <div className={`popup ${isOpen ? "open" : ""}`}>
         <div className="popup-content">

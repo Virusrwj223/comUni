@@ -4,6 +4,7 @@ import NavBar from "./NavBar";
 import FloatingButton from "../widgets/FloatingButton";
 import DeleteButton from "../widgets/DeleteButton";
 import EditButton from "../widgets/EditButton";
+import rest from "../apiRoutes/rest";
 
 function QuestionList() {
   const location = useLocation();
@@ -12,22 +13,14 @@ function QuestionList() {
   const data = location["state"][1]["data"];
   const params = location["state"][0];
   const qnId_arr: Number[] = [];
-  const routing_data = params[2];
   async function handleQuestionClick(qnID: String) {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/api/v2/discussions/${qnID}`
-      );
-      if (response.ok) {
-        const json = await response.json();
-        navigate(String(qnID), {
-          state: [[params[0], qnID], json],
-        });
-      } else {
-        throw response;
-      }
-    } catch (e) {
-      console.log(e);
+    const response = await rest("GET", [qnID], 3);
+    if (response[0] == 200) {
+      navigate(String(qnID), {
+        state: [[params[0], qnID], response[1]],
+      });
+    } else {
+      console.log(response[1]);
     }
   }
 
@@ -38,11 +31,9 @@ function QuestionList() {
     const fetchQns = async () => {
       const qn_data = await Promise.all(
         qnId_arr.map(async (num) => {
-          const response = await fetch(
-            `http://localhost:3000/api/v1/questions/${num}`
-          );
+          const response = await rest("GET", [num], 4);
 
-          return await response.json();
+          return await response[1]; //.json();
         })
       );
       const parsed_qn = qn_data.map((data) => {
@@ -70,11 +61,6 @@ function QuestionList() {
         }}
       >
         {questionData.map((dataPoint) => {
-          /*
-          const handleButtonClick = async (value: number) => {
-            getQuestions(parseInt(textbookId), value + 1);
-          };
-          */
           return (
             <div
               style={{

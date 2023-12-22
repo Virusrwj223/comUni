@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
+import rest from "../apiRoutes/rest";
 
 function ChapterDir() {
   const [chapters, setChapters] = useState("");
@@ -10,37 +11,24 @@ function ChapterDir() {
   const isbn = location["state"];
 
   async function getQuestions(id: number, chapter: number) {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/api/v2/questions/${id}?chapter=${chapter}`
-      );
-      if (response.ok) {
-        const json = await response.json();
-        navigate(String(chapter), {
-          state: [[id, chapter, isbn], json], //json,
-        });
-      } else {
-        throw response;
-      }
-    } catch (e) {
-      console.log(e);
+    const response = await rest("GET", [id, chapter], 1);
+    if (response[0] == 200) {
+      navigate(String(chapter), {
+        state: [[id, chapter, isbn], response[1]], //json,
+      });
+    } else {
+      console.log(response[1]);
     }
   }
   useEffect(() => {
     const fetchChapters = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:3000/api/v1/textbooks/${isbn}`
-        );
-        if (response.ok) {
-          const json = await response.json();
-          setChapters(json["data"]["attributes"]["chapters"]);
-          setTextbookId(json["data"]["id"]);
-        } else {
-          throw response;
-        }
-      } catch (e) {
-        console.log(e);
+      const response = await rest("GET", [isbn], 2);
+      if (response[0] == 200) {
+        const json = response[1];
+        setChapters(json["data"]["attributes"]["chapters"]);
+        setTextbookId(json["data"]["id"]);
+      } else {
+        console.log(response[1]);
       }
     };
     fetchChapters();

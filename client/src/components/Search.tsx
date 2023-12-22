@@ -1,65 +1,49 @@
-import React, { useEffect, useState } from "react";
-import { Route } from "react-router-dom";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/Search.css";
+import rest from "../apiRoutes/rest";
 
 function Search() {
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("aab123");
+  const [bubbleDisplay, setBubbleDisplay] = useState(<div></div>);
 
   const handleSearch = async () => {
-    //await loadTextbook();
-    try {
-      const response = await fetch(
-        "http://localhost:3000/api/v1/textbooks/aab123"
+    const response = await rest("GET", [searchTerm], 5);
+    if (response[0] == 200) {
+      navigate(response[1]["data"]["attributes"]["isbn"], {
+        state: response[1]["data"]["attributes"]["isbn"],
+      });
+    } else if (response[0] == 500) {
+      setBubbleDisplay(
+        <div>
+          <p>Internal server error</p>
+        </div>
       );
-      if (response.ok) {
-        const json = await response.json();
-        navigate(json["data"]["attributes"]["isbn"], {
-          state: json["data"]["attributes"]["isbn"],
-        });
-        //setTextbookId(json["data"]["id"]);
-      } else {
-        throw response;
-      }
-    } catch (e) {
-      console.log(e);
+    } else {
+      setBubbleDisplay(
+        <div>
+          <p>Textbook does not exist</p>
+        </div>
+      );
     }
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: "#333",
-        padding: "10px",
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
-      <input
-        type="text"
-        placeholder="Search..."
-        style={{
-          padding: "5px",
-          marginRight: "5px",
-          color: "#fff",
-          backgroundColor: "#555",
-          border: "none",
-        }}
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-      <button
-        onClick={handleSearch}
-        style={{
-          padding: "5px",
-          backgroundColor: "#007BFF",
-          color: "#fff",
-          border: "none",
-          cursor: "pointer",
-        }}
-      >
-        Search
-      </button>
+    <div>
+      <div className="search-div">
+        <input
+          className="input-box"
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <button onClick={handleSearch} className="search-button">
+          Search
+        </button>
+      </div>
+      <div>{bubbleDisplay}</div>
     </div>
   );
 }

@@ -7,6 +7,7 @@ import EditButton from "../widgets/EditButton";
 
 function DiscussionList() {
   const location = useLocation();
+
   const data = location["state"][1]["data"];
   const params = location["state"][0];
   return (
