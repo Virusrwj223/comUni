@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../styles/FloatingButton.css"; // Import your CSS file for styling
 import Popup from "./Popup";
+import { FaPlus } from "react-icons/fa";
 
 const FloatingButton = ({ id, params }) => {
   const [isPopupOpen, setPopupOpen] = useState(false);
@@ -15,7 +16,9 @@ const FloatingButton = ({ id, params }) => {
     <>
       {
         <div className="floating-button">
-          <button onClick={openPopup}>Open Popup</button>
+          <button onClick={openPopup}>
+            <FaPlus />
+          </button>
           <Popup
             isOpen={isPopupOpen}
             onClose={closePopup}

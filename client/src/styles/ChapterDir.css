@@ -1,0 +1,15 @@
+.card-container {
+  display: grid;
+  flex-wrap: wrap;
+  justify-content: center;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.card {
+  border: 1px solid #0ef;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+}

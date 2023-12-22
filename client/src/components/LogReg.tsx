@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/Search.css";
+import "../styles/LogReg.css";
 import rest from "../apiRoutes/rest";
+import { FaUser } from "react-icons/fa";
+/* https://www.youtube.com/watch?v=mefhyo7W3nk */
 
-/*<Navigate to="/search" />*/
 function LogReg() {
   const [searchTerm, setSearchTerm] = useState("Hrishira");
   const navigate = useNavigate();
@@ -22,18 +23,29 @@ function LogReg() {
   };
 
   return (
-    <div>
-      <div className="search-div">
-        <input
-          className="input-box"
-          type="text"
-          placeholder="Search..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <button onClick={handleSearch} className="search-button">
-          LogIn
-        </button>
+    <div className="wrapper">
+      <div className="form-box login">
+        <h2>Login/Register</h2>
+
+        <div className="input-box">
+          <input
+            type="text"
+            placeholder="Username"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <div className="icon">
+            <FaUser />
+          </div>
+
+          <button onClick={handleSearch} className="btn">
+            LogIn
+          </button>
+        </div>
+      </div>
+      <div className="info-text login">
+        <h2>Hey There!</h2>
+        <p>Let the learning continue</p>
       </div>
     </div>
   );

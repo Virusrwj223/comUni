@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import rest from "../apiRoutes/rest";
 import { useNavigate } from "react-router-dom";
+import { MdDelete } from "react-icons/md";
 
 const DeleteButton = ({ id, params }) => {
   const navigate = useNavigate();
@@ -13,7 +14,9 @@ const DeleteButton = ({ id, params }) => {
   };
   return (
     <div>
-      <button onClick={handleDeleteClick}>Delete</button>
+      <button onClick={handleDeleteClick}>
+        <MdDelete />
+      </button>
     </div>
   );
 };

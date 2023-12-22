@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import FloatingButton from "../widgets/FloatingButton";
 import rest from "../apiRoutes/rest";
+import "../styles/QuestionsList.css";
 
 function QuestionList() {
   const location = useLocation();
@@ -50,28 +51,11 @@ function QuestionList() {
     <div>
       <NavBar page="question" />
       <h1>Questions</h1>
-      <div
-        style={{
-          display: "grid",
-          flexWrap: "wrap",
-
-          height: "100%",
-        }}
-      >
+      <div className="container">
         {questionData.map((dataPoint) => {
           return (
-            <div
-              style={{
-                border: "1px solid #ccc",
-                borderRadius: "8px",
-                margin: "10px",
-                padding: "10px",
-              }}
-            >
-              <div
-                style={{ justifyContent: "center" }}
-                onClick={() => handleQuestionClick(String(dataPoint[2]))}
-              >
+            <div className="card">
+              <div onClick={() => handleQuestionClick(String(dataPoint[2]))}>
                 <h3>{dataPoint[0]}</h3>
                 <p>{dataPoint[1]}</p>
               </div>

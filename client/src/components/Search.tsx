@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/Search.css";
 import rest from "../apiRoutes/rest";
+import { FaBookmark } from "react-icons/fa";
+import { BsSearch } from "react-icons/bs";
+
+/* https://www.youtube.com/watch?v=puOJox9p_YE 
+  https://www.youtube.com/watch?v=9hnJsNIBq1g
+*/
 
 function Search() {
   const navigate = useNavigate();
@@ -37,18 +43,30 @@ function Search() {
 
   return (
     <div>
-      <p onClick={handleMyPage}>My writings</p>
+      <nav>
+        <ul>
+          <li>
+            <span className="nav-item" onClick={handleMyPage}>
+              <FaBookmark />
+              My Page
+            </span>
+          </li>
+        </ul>
+      </nav>
+
       <div className="search-div">
-        <input
-          className="input-box"
-          type="text"
-          placeholder="Search..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <button onClick={handleSearch} className="search-button">
-          Search
-        </button>
+        <div className="search-bar">
+          <input
+            className="input-box"
+            type="text"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <button onClick={handleSearch} className="search-button">
+            <BsSearch />
+          </button>
+        </div>
       </div>
       <div>{bubbleDisplay}</div>
     </div>

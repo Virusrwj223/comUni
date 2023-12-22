@@ -80,26 +80,24 @@ const Popup = ({ isOpen, onClose, id, params }) => {
             &times;
           </span>
           <form>
-            <label>
-              Headline:
-              <textarea
-                value={headline}
-                onChange={(e) => setHeadline(e.target.value)}
-              />
-            </label>
+            <textarea
+              placeholder="Headline"
+              className="textArea-headline"
+              value={headline}
+              onChange={(e) => setHeadline(e.target.value)}
+            />
           </form>
           <form>
-            <label>
-              Message:
-              <textarea
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-              />
-            </label>
-            <button type="button" onClick={handleSubmit}>
-              Submit
-            </button>
+            <textarea
+              placeholder="Message"
+              className="textArea-message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
           </form>
+          <button type="button" onClick={handleSubmit} className="fbtn">
+            Submit
+          </button>
         </div>
       </div>
     );
@@ -111,17 +109,16 @@ const Popup = ({ isOpen, onClose, id, params }) => {
             &times;
           </span>
           <form>
-            <label>
-              Message:
-              <textarea
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-              />
-            </label>
-            <button type="button" onClick={handleSubmit}>
-              Submit
-            </button>
+            <textarea
+              placeholder="Message"
+              className="textArea-message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
           </form>
+          <button type="button" onClick={handleSubmit} className="fbtn">
+            Submit
+          </button>
         </div>
       </div>
     );

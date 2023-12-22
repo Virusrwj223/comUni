@@ -3,6 +3,7 @@ import Popup from "./Popup";
 import QuestionList from "../components/QuestionList";
 import DiscussionList from "../components/DiscussionList";
 import { Navigate } from "react-router-dom";
+import { HiPencil } from "react-icons/hi2";
 
 const EditButton = ({ id, params }) => {
   const [isPopupOpen, setPopupOpen] = useState(false);
@@ -27,7 +28,9 @@ const EditButton = ({ id, params }) => {
     <>
       {
         <div>
-          <button onClick={openPopup}>Edit</button>
+          <button onClick={openPopup}>
+            <HiPencil />
+          </button>
           <Popup
             isOpen={isPopupOpen}
             onClose={closePopup}

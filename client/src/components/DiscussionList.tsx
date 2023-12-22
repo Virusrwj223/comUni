@@ -2,6 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import NavBar from "./NavBar";
 import FloatingButton from "../widgets/FloatingButton";
+import "../styles/DiscussionList.css";
 
 function DiscussionList() {
   const location = useLocation();
@@ -12,13 +13,7 @@ function DiscussionList() {
     <div>
       <NavBar page="discussion" />
       <h1>Discussions</h1>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-        }}
-      >
+      <div className="container">
         {data.map(
           (dataPoint: {
             [x: string]: {
@@ -37,15 +32,7 @@ function DiscussionList() {
             };
           }) => {
             return (
-              <div
-                style={{
-                  border: "1px solid #ccc",
-                  padding: "10px",
-                  margin: "10px",
-                  borderRadius: "8px",
-                  textAlign: "center",
-                }}
-              >
+              <div className="card">
                 <p>{dataPoint["attributes"]["response"]}</p>
               </div>
             );

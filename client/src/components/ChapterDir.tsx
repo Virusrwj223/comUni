@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import rest from "../apiRoutes/rest";
+import "../styles/ChapterDir.css";
 
 function ChapterDir() {
   const [chapters, setChapters] = useState("");
@@ -50,31 +51,14 @@ function ChapterDir() {
       <div>
         <NavBar page="chapter" />
         <h1>Chapters</h1>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-          }}
-        >
+        <div className="card-container">
           {display_arr.map((number) => {
             const handleButtonClick = async (value: number) => {
               getQuestions(parseInt(textbookId), value + 1);
             };
             return (
-              <div
-                style={{
-                  border: "1px solid #ccc",
-                  padding: "10px",
-                  margin: "10px",
-                  borderRadius: "8px",
-                  textAlign: "center",
-                }}
-              >
+              <div className="card" onClick={() => handleButtonClick(number)}>
                 <h2>{number + 1}</h2>
-                <button onClick={() => handleButtonClick(number)}>
-                  Click me
-                </button>
               </div>
             );
           })}

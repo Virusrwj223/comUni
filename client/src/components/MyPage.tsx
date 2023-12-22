@@ -4,6 +4,7 @@ import rest from "../apiRoutes/rest";
 import DeleteButton from "../widgets/DeleteButton";
 import EditButton from "../widgets/EditButton";
 import NavBar from "./NavBar";
+import "../styles/MyPage.css";
 
 function MyPage() {
   const location = useLocation();
@@ -79,24 +80,10 @@ function MyPage() {
       <h1>MyPage</h1>
       <NavBar page="myPage" />
       <h2>Questions</h2>
-      <div
-        style={{
-          display: "grid",
-          flexWrap: "wrap",
-
-          height: "100%",
-        }}
-      >
+      <div className="container">
         {questionData.map((dataPoint) => {
           return (
-            <div
-              style={{
-                border: "1px solid #ccc",
-                borderRadius: "8px",
-                margin: "10px",
-                padding: "10px",
-              }}
-            >
+            <div className="card">
               <div style={{ justifyContent: "center" }}>
                 <h3>{dataPoint[0]}</h3>
                 <p>{dataPoint[1]}</p>
@@ -115,24 +102,10 @@ function MyPage() {
       </div>
 
       <h2>Discussions</h2>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-        }}
-      >
+      <div className="container">
         {discussionData.map((dataPoint) => {
           return (
-            <div
-              style={{
-                border: "1px solid #ccc",
-                padding: "10px",
-                margin: "10px",
-                borderRadius: "8px",
-                textAlign: "center",
-              }}
-            >
+            <div className="card">
               <p>{dataPoint[0]}</p>
               <div style={{ display: "flex" }}>
                 <div style={{ marginRight: "5px" }}>
