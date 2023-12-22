@@ -20,11 +20,12 @@ const Popup = ({ isOpen, onClose, id, params }) => {
       };
       const response = await rest("POST", [NaN, formData], 6);
     } else if (id == "QuestionsEdit") {
-      const textbook_id = params[0][0];
-      const chapter = params[0][1];
-      let new_headline = params[1][0];
-      let new_message = params[1][1];
-      const qID = params[1][2];
+      const textbook_id = params[3];
+      const chapter = params[4];
+      let new_headline = params[0];
+      let new_message = params[1];
+      const qID = params[2];
+      const acc_id = params[5];
       if (headline != "") {
         new_headline = headline;
       }
@@ -36,7 +37,7 @@ const Popup = ({ isOpen, onClose, id, params }) => {
         chapter: chapter,
         questionHead: new_headline,
         questionBlurb: new_message,
-        account_id: 1,
+        account_id: acc_id,
       };
       const response = await rest("PATCH", [qID, formData], 4);
     } else if (id == "Discussions") {
@@ -50,11 +51,11 @@ const Popup = ({ isOpen, onClose, id, params }) => {
       };
       const response = await rest("POST", [NaN, formData], 7);
     } else if (id == "DiscussionsEdit") {
-      const dID = params[1]["id"];
-      const textbook_id = params[1]["attributes"]["textbook_id"];
-      const question_id = params[1]["attributes"]["question_id"];
-      let new_message = params[1]["attributes"]["response"];
-      const account_id = params[1]["attributes"]["account_id"];
+      const dID = params[1];
+      const textbook_id = params[2];
+      const question_id = params[3];
+      let new_message = params[0];
+      const account_id = params[4];
 
       if (message != "") {
         new_message = message;

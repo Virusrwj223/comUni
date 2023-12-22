@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
 import FloatingButton from "../widgets/FloatingButton";
-import DeleteButton from "../widgets/DeleteButton";
-import EditButton from "../widgets/EditButton";
 import rest from "../apiRoutes/rest";
 
 function QuestionList() {
@@ -76,14 +74,6 @@ function QuestionList() {
               >
                 <h3>{dataPoint[0]}</h3>
                 <p>{dataPoint[1]}</p>
-              </div>
-              <div style={{ display: "flex" }}>
-                <div style={{ marginRight: "5px" }}>
-                  <DeleteButton id="Questions" params={dataPoint[2]} />
-                </div>
-                <div style={{ marginLeft: "5px" }}>
-                  <EditButton id="Questions" params={[params, dataPoint]} />
-                </div>
               </div>
             </div>
           );

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :discussions
     end
     namespace :v2 do
+      resources :accounts, param: :name
       resources :questions, param: :chapter, param: :textbook_id
       resources :discussions, param: :question_id
     end

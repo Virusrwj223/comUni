@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/Search.css";
 import rest from "../apiRoutes/rest";
 
 function Search() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchTerm, setSearchTerm] = useState("aab123");
   const [bubbleDisplay, setBubbleDisplay] = useState(<div></div>);
+  const acc_id = location["state"][0];
 
   const handleSearch = async () => {
     const response = await rest("GET", [searchTerm], 5);
@@ -29,8 +31,13 @@ function Search() {
     }
   };
 
+  const handleMyPage = async () => {
+    navigate("myPage", { state: acc_id });
+  };
+
   return (
     <div>
+      <p onClick={handleMyPage}>My writings</p>
       <div className="search-div">
         <input
           className="input-box"

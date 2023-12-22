@@ -11,6 +11,9 @@ async function rest(request, param, channel) {
     6: (args) => `http://localhost:3000/api/v1/questions`,
     7: (args) => `http://localhost:3000/api/v1/discussions`,
     8: (args) => `http://localhost:3000/api/v1/discussions/id=${args[0]}`,
+    9: (args) => `http://localhost:3000/api/v2/accounts/${args[0]}`,
+    10: (args) => `http://localhost:3000/api/v1/accounts`,
+    11: (args) => `http://localhost:3000/api/v1/accounts/id=${args[0]}`,
   };
   if (request == "GET" || request == "DELETE") {
     try {
