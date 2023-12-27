@@ -18,20 +18,20 @@ function Search() {
 
   const handleSearch = async () => {
     const response = await rest("GET", [searchTerm], 5);
-    if (response[0] == 200) {
+    if (response[0] == 200 && response[1]["data"] != null) {
       navigate(response[1]["data"]["attributes"]["isbn"], {
         state: response[1]["data"]["attributes"]["isbn"],
       });
-    } else if (response[0] == 500) {
+    } else if (response[1]["data"] == null) {
       setBubbleDisplay(
-        <div>
-          <p>Internal server error</p>
+        <div style={{ marginLeft: "60px" }}>
+          <p>Textbook does not exist</p>
         </div>
       );
     } else {
       setBubbleDisplay(
-        <div>
-          <p>Textbook does not exist</p>
+        <div style={{ marginLeft: "60px" }}>
+          <p>Internal server error</p>
         </div>
       );
     }

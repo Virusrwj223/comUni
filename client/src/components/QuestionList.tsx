@@ -35,13 +35,21 @@ function QuestionList() {
           return await response[1]; //.json();
         })
       );
-      const parsed_qn = qn_data.map((data) => {
-        return [
-          data["data"]["attributes"]["questionHead"],
-          data["data"]["attributes"]["questionBlurb"],
-          data["data"]["id"],
-        ];
-      });
+
+      const parsed_qn = await Promise.all(
+        qn_data.map(async (data) => {
+          const acc_id = data["data"]["attributes"]["account_id"];
+          const response = await rest("GET", [acc_id], 11);
+          const acc_name = response[1]["data"]["attributes"]["name"];
+          return [
+            data["data"]["attributes"]["questionHead"],
+            data["data"]["attributes"]["questionBlurb"],
+            data["data"]["id"],
+            acc_name,
+          ];
+        })
+      );
+
       setQuestionData(parsed_qn);
     };
     fetchQns();
@@ -56,8 +64,14 @@ function QuestionList() {
           return (
             <div className="card">
               <div onClick={() => handleQuestionClick(String(dataPoint[2]))}>
-                <h3>{dataPoint[0]}</h3>
-                <p>{dataPoint[1]}</p>
+                <div className="card-header">
+                  <h3>{dataPoint[0]}</h3>
+                  <p>{dataPoint[1]}</p>
+                </div>
+                <hr className="between" />
+                <div className="card-footer">
+                  <p>{dataPoint[3]}</p>
+                </div>
               </div>
             </div>
           );

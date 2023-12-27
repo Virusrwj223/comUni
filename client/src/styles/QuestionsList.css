@@ -11,3 +11,17 @@
   margin: 10px;
   padding: 10px;
 }
+
+.card-footer {
+  text-align: left;
+  margin-left: 5px;
+}
+
+.card-header {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.between {
+  border: 1px solid aqua;
+}
