@@ -8,6 +8,7 @@ import "../styles/QuestionsList.css";
 function QuestionList() {
   const location = useLocation();
   const [questionData, setQuestionData] = useState([[[]]]);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const data = location["state"][1]["data"];
   const params = location["state"][0];
@@ -50,36 +51,45 @@ function QuestionList() {
         })
       );
 
+      setLoading(true);
       setQuestionData(parsed_qn);
     };
     fetchQns();
   }, []);
 
-  return (
-    <div>
-      <NavBar page="question" />
-      <h1>Questions</h1>
-      <div className="container">
-        {questionData.map((dataPoint) => {
-          return (
-            <div className="card">
-              <div onClick={() => handleQuestionClick(String(dataPoint[2]))}>
-                <div className="card-header">
-                  <h3>{dataPoint[0]}</h3>
-                  <p>{dataPoint[1]}</p>
-                </div>
-                <hr className="between" />
-                <div className="card-footer">
-                  <p>{dataPoint[3]}</p>
+  if (!loading) {
+    return (
+      <div>
+        <h2>loading</h2>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <NavBar page="question" />
+        <h1>Questions</h1>
+        <div className="container">
+          {questionData.map((dataPoint) => {
+            return (
+              <div className="card">
+                <div onClick={() => handleQuestionClick(String(dataPoint[2]))}>
+                  <div className="card-header">
+                    <h3>{dataPoint[0]}</h3>
+                    <p>{dataPoint[1]}</p>
+                  </div>
+                  <hr className="between" />
+                  <div className="card-footer">
+                    <p>{dataPoint[3]}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+        <FloatingButton id="Questions" params={params} />
       </div>
-      <FloatingButton id="Questions" params={params} />
-    </div>
-  );
+    );
+  }
 }
 
 export default QuestionList;

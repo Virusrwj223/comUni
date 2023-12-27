@@ -10,7 +10,8 @@ function MyPage() {
   const location = useLocation();
   const [questionData, setQuestionData] = useState([[[]]]);
   const [discussionData, setDiscussionsData] = useState([[[]]]);
-  const acc_id = 1; //location["state"];
+  const [loading, setLoading] = useState(false);
+  const acc_id = location["state"];
 
   useEffect(() => {
     const fetchContributions = async () => {
@@ -71,56 +72,65 @@ function MyPage() {
 
       await fetchQns();
       await fetchDiss();
+      setLoading(true);
     };
     fetchContributions();
   }, []);
 
-  return (
-    <div>
-      <h1>MyPage</h1>
-      <NavBar page="myPage" />
-      <h2>Questions</h2>
-      <div className="container">
-        {questionData.map((dataPoint) => {
-          return (
-            <div className="card">
-              <div style={{ justifyContent: "center" }}>
-                <h3>{dataPoint[0]}</h3>
-                <p>{dataPoint[1]}</p>
-              </div>
-              <div style={{ display: "flex" }}>
-                <div style={{ marginRight: "5px" }}>
-                  <DeleteButton id="Questions" params={dataPoint[2]} />
-                </div>
-                <div style={{ marginLeft: "5px" }}>
-                  <EditButton id="Questions" params={dataPoint} />
-                </div>
-              </div>
-            </div>
-          );
-        })}
+  if (!loading) {
+    return (
+      <div>
+        <h2>loading</h2>
       </div>
+    );
+  } else {
+    return (
+      <div>
+        <h1>MyPage</h1>
+        <NavBar page="myPage" />
+        <h2>Questions</h2>
+        <div className="container">
+          {questionData.map((dataPoint) => {
+            return (
+              <div className="card">
+                <div style={{ justifyContent: "center" }}>
+                  <h3>{dataPoint[0]}</h3>
+                  <p>{dataPoint[1]}</p>
+                </div>
+                <div style={{ display: "flex" }}>
+                  <div style={{ marginRight: "5px" }}>
+                    <DeleteButton id="Questions" params={dataPoint[2]} />
+                  </div>
+                  <div style={{ marginLeft: "5px" }}>
+                    <EditButton id="Questions" params={dataPoint} />
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
 
-      <h2>Discussions</h2>
-      <div className="container">
-        {discussionData.map((dataPoint) => {
-          return (
-            <div className="card">
-              <p>{dataPoint[0]}</p>
-              <div style={{ display: "flex" }}>
-                <div style={{ marginRight: "5px" }}>
-                  <DeleteButton id="Discussions" params={dataPoint[1]} />
-                </div>
-                <div style={{ marginLeft: "5px" }}>
-                  <EditButton id="Discussions" params={dataPoint} />
+        <h2>Discussions</h2>
+        <div className="container">
+          {discussionData.map((dataPoint) => {
+            return (
+              <div className="card">
+                <p>{dataPoint[0]}</p>
+                <div style={{ display: "flex" }}>
+                  <div style={{ marginRight: "5px" }}>
+                    <DeleteButton id="Discussions" params={dataPoint[1]} />
+                  </div>
+                  <div style={{ marginLeft: "5px" }}>
+                    <EditButton id="Discussions" params={dataPoint} />
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default MyPage;

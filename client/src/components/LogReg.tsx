@@ -6,7 +6,7 @@ import { FaUser } from "react-icons/fa";
 /* https://www.youtube.com/watch?v=mefhyo7W3nk */
 
 function LogReg() {
-  const [searchTerm, setSearchTerm] = useState("Hrishira");
+  const [searchTerm, setSearchTerm] = useState("Hrishiraj");
   const navigate = useNavigate();
 
   const handleSearch = async () => {
