@@ -13,9 +13,9 @@ services:
     # preDeployCommand: "./bin/rails db:migrate" # preDeployCommand only available on paid instance types
     startCommand: "./bin/rails server"
     envVars:
-      - key: DATABASE_URL
+      - key: postgres://hrishiraj_mandal:zT4md9jDW1pd2USAdLXbLt88NHbFZ1J2@dpg-cm8i0f8cmk4c73924550-a/dbcu
         fromDatabase:
-          name: mysite
+          name: comUni
           property: connectionString
       - key: RAILS_MASTER_KEY
         sync: false
