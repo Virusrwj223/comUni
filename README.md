@@ -1,24 +1,32 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+COMUNI
+Designed By: Hrishiraj Mandal
 
-Things you may want to cover:
+SET-UP:
 
-* Ruby version
+1. Open your terminal and cd into your desired directory
 
-* System dependencies
+2. Clone the repository in the desired directory
 
-* Configuration
+   `git clone https://github.com/Virusrwj223/comUni.git`
 
-* Database creation
+3. cd into the project
 
-* Database initialization
+   `cd comUni`
 
-* How to run the test suite
+4. Run rails server
 
-* Services (job queues, cache servers, search engines, etc.)
+   `rails s`
 
-* Deployment instructions
+5. Open a new terminal and cd into the project directory (That is till comUni as done in step 3)
 
-* ...
+6. In the new terminal, cd into client
+
+   `cd client`
+
+7. In the new terminal, run the development using
+
+   `npm run dev`
+
+8. A local link is printed in the new terminal (http://localhost:5173/). Click on the link to view the project
