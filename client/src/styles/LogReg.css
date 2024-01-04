@@ -8,7 +8,7 @@ body {
 
 .wrapper {
   position: relative;
-  width: 600px;
+  width: 700px;
   height: 400px;
   background: transparent;
   border: 2px solid;
@@ -81,12 +81,12 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .wrapper .info-text.login {
   right: 0;
   text-align: right;
-  padding-right: 10px;
 }
 
 .info-text h2 {

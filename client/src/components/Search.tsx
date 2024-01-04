@@ -55,6 +55,7 @@ function Search() {
       </nav>
 
       <div className="search-div">
+        <h1>COMUNI</h1>
         <div className="search-bar">
           <input
             className="input-box"

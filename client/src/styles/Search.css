@@ -23,6 +23,11 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+}
+
+.search-div h1 {
+  letter-spacing: 4px;
 }
 
 .search-bar {
