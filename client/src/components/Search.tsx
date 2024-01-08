@@ -12,7 +12,7 @@ import { BsSearch } from "react-icons/bs";
 function Search() {
   const navigate = useNavigate();
   const location = useLocation();
-  const [searchTerm, setSearchTerm] = useState("aab123");
+  const [searchTerm, setSearchTerm] = useState("9780133969290");
   const [bubbleDisplay, setBubbleDisplay] = useState(<div></div>);
   const acc_id = location["state"][0];
 
